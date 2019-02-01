@@ -23,31 +23,32 @@ Starting, Stopping, Restarting a Ceph Daemon by Instance
 
 STARTING, STOPPING, AND RESTARTING ALL THE CEPH DAEMONS
 #### On Ceph Cluster nodes
-[root@admin ~]# systemctl <start/stop/restart> ceph.target
+>[root@admin ~]# systemctl <start/stop/restart> ceph.target
 STARTING, STOPPING, AND RESTARTING THE CEPH DAEMONS BY TYPE
 #### On Ceph Monitor nodes
-[root@mon ~]# systemctl <start/stop/restart> ceph-mon.target
+>[root@mon ~]# systemctl <start/stop/restart> ceph-mon.target
 #### On Ceph OSD nodes
-[root@osd ~]# systemctl <start/stop/restart> ceph-osd.target
+>[root@osd ~]# systemctl <start/stop/restart> ceph-osd.target
 #### On Ceph Object Gateway Nodes
-[root@rgw ~]# systemctl <start/stop/restat> ceph-radosgw.target
+>[root@rgw ~]# systemctl <start/stop/restat> ceph-radosgw.target
 STARTING, STOPPING, AND RESTARTING A CEPH DAEMONS BY INSTANCE
 #### On a Ceph Monitor node:
-[root@mon ~]# systemctl <start/stop/restart> ceph-mon@$MONITOR_HOST_NAME
-#### Replace $MONITOR_HOST_NAME with the name of the Ceph Monitor node. 
+>[root@mon ~]# systemctl <start/stop/restart> ceph-mon@$MONITOR_HOST_NAME
+#### Replace $MONITOR_HOST_NAME with the name of the Ceph Monitor node.
 #### On a Ceph OSD node:
-[root@osd ~]# systemctl <start/stop/restart> ceph-osd@OSD_NUMBER
+>[root@osd ~]# systemctl <start/stop/restart> ceph-osd@OSD_NUMBER
 #### Replace $OSD_NUMBER with the ID number of the Ceph OSD
 #### On a Ceph Object Gateway node:
-[root@rgw ~]# systemctl <start/stop/restart> ceph-radosgw@rgw.$OBJ_GATEWAY_HOST_NAME
+>[root@rgw ~]# systemctl <start/stop/restart> ceph-radosgw@rgw.$OBJ_GATEWAY_HOST_NAME
 #### Replace $OBJ_GATEWAY_HOST_NAME with the name of the Ceph Object Gateway node.
 
 ## CHAPTER 3. MONITORING
 
 ## CHAPTER 4. OVERRIDES
 set or unset OSD flag
-# ceph osd set <flag>
-# ceph osd unset <flag>
+># ceph osd set <flag>
+># ceph osd unset <flag>
+
 USE CASES
 noin: Commonly used with noout to address flapping OSDs.
 noout: If the mon osd report timeout is exceeded and an OSD has not reported to the monitor, the OSD will get marked out. If this happens erroneously, you can set noout to prevent the OSD(s) from getting marked out while you troubleshoot the issue.
