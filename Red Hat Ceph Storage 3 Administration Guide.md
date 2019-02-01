@@ -24,6 +24,7 @@ Starting, Stopping, Restarting a Ceph Daemon by Instance
 STARTING, STOPPING, AND RESTARTING ALL THE CEPH DAEMONS
 #### On Ceph Cluster nodes
 `[root@admin ~]# systemctl <start/stop/restart> ceph.target`
+
 STARTING, STOPPING, AND RESTARTING THE CEPH DAEMONS BY TYPE
 #### On Ceph Monitor nodes
 `[root@mon ~]# systemctl <start/stop/restart> ceph-mon.target`
@@ -31,6 +32,7 @@ STARTING, STOPPING, AND RESTARTING THE CEPH DAEMONS BY TYPE
 `[root@osd ~]# systemctl <start/stop/restart> ceph-osd.target`
 #### On Ceph Object Gateway Nodes
 `[root@rgw ~]# systemctl <start/stop/restat> ceph-radosgw.target`
+
 STARTING, STOPPING, AND RESTARTING A CEPH DAEMONS BY INSTANCE
 #### On a Ceph Monitor node:
 `[root@mon ~]# systemctl <start/stop/restart> ceph-mon@$MONITOR_HOST_NAME`
@@ -46,8 +48,10 @@ STARTING, STOPPING, AND RESTARTING A CEPH DAEMONS BY INSTANCE
 
 ## CHAPTER 4. OVERRIDES
 set or unset OSD flag
-`# ceph osd set <flag>`
-`# ceph osd unset <flag>`
+```
+# ceph osd set <flag>
+# ceph osd unset <flag>
+```
 
 USE CASES
 noin: Commonly used with noout to address flapping OSDs.
