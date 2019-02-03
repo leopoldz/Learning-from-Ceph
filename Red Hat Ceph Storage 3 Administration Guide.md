@@ -69,3 +69,61 @@ USE CASES
 * notieragent: If you want to stop the tier agent process from finding cold objects to flush to the backing storage tier, you may set notieragent.
 
 ### CHAPTER 5. USER MANAGEMENT
+#### 5.2. MANAGEMENT USERS
+##### 5.2.1. List USERS
+>$ sudo ceph auth List
+##### 5.2.2.
+>$ sudo ceph auth get <TYPE.ID>
+>$ sudo ceph auth get client.admin
+
+** option -o <file_name>, output to a file **
+
+** auth export is idntical to auth get **
+##### 5.2.3. Add a user
+```
+# ceph auth add client.john mon 'allow r' osd 'allow rw pool=liverpool' # ceph auth get-or-create client.paul mon 'allow r' osd 'allow rw pool=liverpool'
+# ceph auth get-or-create client.george mon 'allow r' osd 'allow rw pool=liverpool' -o george.keyring
+# ceph auth get-or-create-key client.ringo mon 'allow r' osd 'allow rw pool=liverpool' -o ringo.key
+```
+##### 5.2.4. Modify user Capabilities
+###### Syntax
+```
+# ceph auth caps <USERTYPE.USERID> <daemon> 'allow [r|w|x|*|...] [pool= <pool_name>] [namespace=<namespace_name>]'
+```
+###### Example
+```
+# ceph auth caps client.john mon 'allow r' osd 'allow rw pool=liverpool'
+# ceph auth caps client.paul mon 'allow rw' osd 'allow rwx pool=liverpool'
+# ceph auth caps client.brian-manager mon 'allow *' osd 'allow *'
+```
+###### To remove a capability
+```
+# ceph auth caps client.ringo mon ' ' osd ' '
+```
+##### 5.2.5. Delete a user
+```
+# ceph auth del {TYPE}.{ID}
+```
+##### 5.2.6. Print a User's key
+To print a user's authentication key:
+```
+# ceph auth print-key <type>.<ID>
+```
+Print a user's key is useful when you need to populate client software with a user's key.
+```
+# mount -t ceph <hostname>:/<mount_point> -o name=client.user,secret=`ceph auth print-key client.user`
+```
+##### 5.2.7. Import a User
+```
+# ceph auth import -i </path/to/keying>
+```
+
+#### 5.3. KEYRING MANAGEMENT
+When you access Ceph by using a Ceph client, the Ceph client will look for a local keyring. Ceph presets the **keyring** setting with the folowing four keyring names by default so you don't have to set them in the Ceph configuration file unless you want to override the defaults, which is not recommended:
+* /etc/ceph/$cluster.$name.keyring
+* /etc/ceph/$cluster.keyring
+* /etc/ceph/keyring
+* /etc/ceph/keyring.bin
+
+##### 5.3.1 Create a keying
+When you use the procedures in the Managing Users_ section to create users, you need to provide user keys to the Ceph client(s) so that the Ceph client can retrieve the key for the specified user and authenticate with the Ceph Storage Cluster. Ceph Clients access keyrings to lookup a user name and retrieve the user’s key.
